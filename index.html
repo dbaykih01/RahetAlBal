@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قائمة المقهى - راحة البال</title>
+    <!-- Google Font for Arabic -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #2c2c2c;
+            --color-text: #f5f5f5;
+            --color-accent: #d4a017;
+            --font-family: 'Cairo', sans-serif;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html, body {
+            height: 100%;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            font-family: var(--font-family);
+        }
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            position: relative;
+            padding: 2rem 1rem;
+            text-align: center;
+            background-image: url('rahetalbalbg.jpeg'); /* استبدل 'header-bg.jpg' بمسار الصورة الفعلي */
+            background-size: cover;
+            background-position: center;
+            color: var(--color-text);
+        }
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 0;
+        }
+        .header-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--color-accent);
+        }
+        .shop-info {
+            font-size: 0.9rem;
+            color: var(--color-text);
+            line-height: 1.4;
+        }
+        main {
+            flex: 1;
+            padding: 1rem;
+        }
+        .accordion {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .accordion-item {
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        .accordion-button {
+            width: 100%;
+            background-color: transparent;
+            border: none;
+            padding: 1rem;
+            text-align: right;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-text);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        .accordion-button:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        .accordion-button:focus {
+            outline: none;
+        }
+        .accordion-button .icon {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+        .accordion-button.expanded .icon {
+            transform: rotate(45deg);
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .items-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            padding: 0 1rem 1rem;
+        }
+        .item-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 0.75rem;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+        }
+        .item-card .item-name {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            text-align: right;
+        }
+        .item-card .item-desc {
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+            color: #ccc;
+            text-align: right;
+        }
+        .item-card .item-price {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-top: auto;
+            text-align: left;
+            color: var(--color-text);
+        }
+        footer {
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.9rem;
+            color: #aaa;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .footer-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            margin-bottom: 0.5rem;
+        }
+        @media (min-width: 600px) {
+            .items-container {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            .item-card {
+                flex: 1 1 calc(50% - 1rem);
+            }
+        }
+        @media (min-width: 900px) {
+            .item-card {
+                flex: 1 1 calc(33.33% - 1rem);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">راحة البال</div>
+            <div class="shop-info">
+                <div>العنوان: طرابلس الميناء</div>
+                <div>ساعات العمل: ٢٤ ساعة طيلة أيام الأسبوع</div>
+                <div>للحجز أو الاستفسار: +961 3 130 735</div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="accordion">
+            <div class="accordion-item">
+                <button class="accordion-button" data-category="اطباق">
+                    <span>أطباق</span>
+                    <span class="icon">+</span>
+                </button>
+                <div class="accordion-content" id="content-اطباق">
+                    <div class="items-container" id="items-اطباق">
+                        <!-- سيتم ملء العناصر برمجياً -->
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-button" data-category="عصير طبيعي">
+                    <span>عصير طبيعي</span>
+                    <span class="icon">+</span>
+                </button>
+                <div class="accordion-content" id="content-عصير طبيعي">
+                    <div class="items-container" id="items-عصير طبيعي">
+                        <!-- سيتم ملء العناصر برمجياً -->
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-button" data-category="مرطبات">
+                    <span>مرطبات</span>
+                    <span class="icon">+</span>
+                </button>
+                <div class="accordion-content" id="content-مرطبات">
+                    <div class="items-container" id="items-مرطبات">
+                        <!-- سيتم ملء العناصر برمجياً -->
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-button" data-category="مشروبات ساخنة">
+                    <span>مشروبات ساخنة</span>
+                    <span class="icon">+</span>
+                </button>
+                <div class="accordion-content" id="content-مشروبات ساخنة">
+                    <div class="items-container" id="items-مشروبات ساخنة">
+                        <!-- سيتم ملء العناصر برمجياً -->
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-button" data-category="مشروبات باردة">
+                    <span>مشروبات باردة</span>
+                    <span class="icon">+</span>
+                </button>
+                <div class="accordion-content" id="content-مشروبات باردة">
+                    <div class="items-container" id="items-مشروبات باردة">
+                        <!-- سيتم ملء العناصر برمجياً -->
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-button" data-category="اراكيل">
+                    <span>أراجيل</span>
+                    <span class="icon">+</span>
+                </button>
+                <div class="accordion-content" id="content-اراكيل">
+                    <div class="items-container" id="items-اراكيل">
+                        <!-- سيتم ملء العناصر برمجياً -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="footer-info">
+            <div>راحة البال</div>
+            <div>العنوان: طرابلس الميناء</div>
+            <div>ساعات العمل: ٢٤ ساعة طيلة أيام الأسبوع</div>
+            <div>للحجز أو الاستفسار: +961 3 130 735</div>
+        </div>
+        &copy; 2025 راحة البال. جميع الحقوق محفوظة.
+    </footer>
+    <script>
+        // كائن لتخزين بيانات القوائم؛ يمكن لاحقاً تعبئته بالعناصر
+const categories = {
+  "اطباق": [
+    { name: "كريسبي", price: "800,000 ل.ل" },
+    { name: "طاووق", price: "800,000 ل.ل" },
+    { name: "همبرغر", price: "800,000 ل.ل" },
+    { name: "فاهيتا", price: "800,000 ل.ل" }
+  ],
+  "عصير طبيعي":  [
+  { name: "ليمون", price: "200,000 ل.ل" },
+  { name: "جزر", price: "200,000 ل.ل" },
+  { name: "تفاح", price: "200,000 ل.ل" },
+  { name: "فريسكو", price: "200,000 ل.ل" },
+  { name: "كوكتيل شراب", price: "400,000 ل.ل" },
+  { name: "كوكتيل شقف", price: "600,000 ل.ل" },
+  { name: "كاسة بوظة", price: "300,000 ل.ل" }
+],
+  "مشروبات ساخنة": [
+    { name: "اكسبريسو", price: "200,000 ل.ل" },
+    { name: "قهوة تركي", price: "200,000 ل.ل" },
+    { name: "شاي", price: "200,000 ل.ل" },
+    { name: "زهورات", price: "200,000 ل.ل" },
+    { name: "يانسون", price: "200,000 ل.ل" },
+    { name: "زنجبيل", price: "200,000 ل.ل" },
+    { name: "كمون و ليمون", price: "200,000 ل.ل" },
+    { name: "بابونج", price: "200,000 ل.ل" },
+    { name: "شاي اخضر", price: "200,000 ل.ل" },
+    { name: "نسكافيه", price: "200,000 ل.ل" },
+    { name: "هوت شوكليت", price: "200,000 ل.ل" },
+    { name: "كابتشينو", price: "200,000 ل.ل" }
+  ],
+  "مشروبات باردة": [
+    { name: "بيبسي", price: "200,000 ل.ل" },
+  { name: "انانس اكسترا", price: "200,000 ل.ل" },
+  { name: "منغا", price: "200,000 ل.ل" },
+  { name: "غوافا", price: "200,000 ل.ل" },
+  { name: "كوكتيل", price: "200,000 ل.ل" },
+  { name: "تمر هندي", price: "200,000 ل.ل" },
+  { name: "ايس كوفي", price: "200,000 ل.ل" },
+  { name: "xxl", price: "200,000 ل.ل" },
+  { name: "دارك بلو", price: "200,000 ل.ل" },
+
+  // المشروبات الجديدة
+  { name: "كلاسيك آيس أمريكانو", price: "300,000 ل.ل" },
+  { name: "آيس فانيلا لاتيه", price: "300,000 ل.ل" },
+  { name: "آيس كراميل ماكياتو", price: "300,000 ل.ل" },
+  { name: "كولد برو كوفي", price: "300,000 ل.ل" },
+  { name: "موكا فرابيه", price: "400,000 ل.ل" },
+  { name: "آيس تي ليمون", price: "300,000 ل.ل" },
+  { name: "آيس تي خوخ", price: "300,000 ل.ل" },
+  { name: "شاي أخضر بالنعناع", price: "300,000 ل.ل" },
+  { name: "موهيتو", price: "350,000 ل.ل" },
+  { name: "شوكولامو", price: "450,000 ل.ل" },
+  { name: "ميلك شيك شوكولا", price: "450,000 ل.ل" },
+  { name: "ميلك شيك أوريو شوكولا", price: "450,000 ل.ل" },
+  { name: "ميلك شيك موز وفراولة", price: "450,000 ل.ل" },
+  { name: "تروبيكال بارادايس", price: "400,000 ل.ل" },
+  { name: "بيتش صنرايز", price: "400,000 ل.ل" },
+  { name: "راحة البال", price: "600,000 ل.ل" }
+    
+  ],
+  "اراكيل": [
+    { name: "تركي", price: "600,000 ل.ل" },
+    { name: "نكهة", price: "600,000 ل.ل" },
+    { name: "المعسل", price: "600,000 ل.ل" },
+    { name: "اصفهاني", price: "800,000 ل.ل" }
+  ],
+  "مرطبات": [
+  { name: "بيبسي", price: "200,000 ل.ل" },
+    { name: "انانس اكسترا", price: "200,000 ل.ل" },
+    { name: "منغا", price: "200,000 ل.ل" },
+    { name: "غوافا", price: "200,000 ل.ل" },
+    { name: "كوكتيل", price: "200,000 ل.ل" },
+    { name: "تمر هندي", price: "200,000 ل.ل" },
+    { name: "ايس كوفي", price: "200,000 ل.ل" },
+    { name: "xxl", price: "200,000 ل.ل" },
+    { name: "دارك بلو", price: "200,000 ل.ل" }
+  ]
+};
+
+        // مثال لإضافة عناصر:
+        // categories["اطباق"].push({ name: "اسم الطبق", desc: "وصف اختياري", price: "10,000 ل.ل" });
+
+        document.querySelectorAll('.accordion-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const category = button.getAttribute('data-category');
+                const content = document.getElementById(`content-${category}`);
+                const icon = button.querySelector('.icon');
+                const isExpanded = button.classList.contains('expanded');
+                if (isExpanded) {
+                    // Collapse
+                    button.classList.remove('expanded');
+                    content.style.maxHeight = null;
+                    icon.textContent = '+';
+                } else {
+                    // Expand
+                    // Before expanding، أغلق أي قسم مفتوح آخر
+                    document.querySelectorAll('.accordion-button.expanded').forEach(expBtn => {
+                        expBtn.classList.remove('expanded');
+                        expBtn.querySelector('.icon').textContent = '+';
+                        const cat = expBtn.getAttribute('data-category');
+                        const cnt = document.getElementById(`content-${cat}`);
+                        cnt.style.maxHeight = null;
+                    });
+                    button.classList.add('expanded');
+                    icon.textContent = '–';
+                    // Render items if not rendered
+                    renderItems(category);
+                    // Set max-height to scrollHeight for animation
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                }
+            });
+        });
+
+        function renderItems(category) {
+            const container = document.getElementById(`items-${category}`);
+            // إذا كانت الحاوية فارغة، نعبئها
+            if (container.children.length === 0) {
+                const items = categories[category];
+                if (items.length === 0) {
+                    const msg = document.createElement('div');
+                    msg.textContent = 'لا توجد عناصر بعد في هذه الفئة.';
+                    msg.style.color = '#ccc';
+                    msg.style.padding = '0.5rem 0';
+                    msg.style.textAlign = 'center';
+                    container.appendChild(msg);
+                } else {
+                    items.forEach(item => {
+                        const card = document.createElement('div');
+                        card.className = 'item-card';
+                        const nameEl = document.createElement('div');
+                        nameEl.className = 'item-name';
+                        nameEl.textContent = item.name;
+                        card.appendChild(nameEl);
+                        if (item.desc) {
+                            const descEl = document.createElement('div');
+                            descEl.className = 'item-desc';
+                            descEl.textContent = item.desc;
+                            card.appendChild(descEl);
+                        }
+                        const priceEl = document.createElement('div');
+                        priceEl.className = 'item-price';
+                        priceEl.textContent = item.price;
+                        card.appendChild(priceEl);
+                        container.appendChild(card);
+                    });
+                }
+            }
+        }
+    </script>
+</body>
+</html>
